@@ -33,7 +33,8 @@ module Devise
       end
 
       def authenticate!
-        resource = mapping.to.find_for_token_authentication(authentication_hash)
+        # resource = mapping.to.find_for_token_authentication(authentication_hash)
+        resource = mapping.to.where(authentication_token: authentication_hash[:auth_token])
         return fail(:invalid_token) unless resource
 
         unless token_expires_in.blank?
